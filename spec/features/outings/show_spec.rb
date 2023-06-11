@@ -50,5 +50,20 @@ RSpec.describe "/outings/:id, outings show page", type: :feature do
       expect(page).to_not have_content("#{taylor.name}")
       expect(page).to_not have_content("#{joe.name}")
     end
+
+    #userstory 5
+    it "has a button next to each name to remove that contestant from the outing" do
+      visit outing_path(hotsprings)
+      expect(page).to have_content("#{peter.name}")
+      save_and_open_page
+      within "#contestant-#{peter.id}" do
+        expect(page).to have_content("#{peter.name}")
+        expect(page).to have_button("Remove #{peter.name}")
+        click_button "Remove #{peter.name}"
+      end
+
+      expect(current_path).to eq(outing_path(hotsprings))
+      expect(page).to_not have_content("#{peter.name}")
+    end
   end
 end

@@ -6,5 +6,8 @@
 
 <h3>Contestants: </h3>
   <% @outing.contestants.each do |contestant| %>
-    <p><%= contestant.name %></p>
+    <div id="contestant-<%= contestant.id %>">
+      <p><%= contestant.name %></p>
+      <%= button_to "Remove #{contestant.name}", "/outings/#{@outing.id}?contestant=#{contestant.id}", method: :delete %>
+    </div>
   <% end %>
